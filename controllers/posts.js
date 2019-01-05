@@ -3,8 +3,8 @@ const mbxGeocoding = require('@mapbox/mapbox-sdk/services/geocoding');
 const geocodingClient = mbxGeocoding({ accessToken: process.env.MAPBOX_TOKEN });
 const cloudinary = require('cloudinary');
 cloudinary.config({
-	cloud_name: 'devsprout',
-	api_key: '111963319915549',
+	cloud_name: 'daumszwur',
+	api_key: '435915989927822',
 	api_secret: process.env.CLOUDINARY_SECRET
 });
 
