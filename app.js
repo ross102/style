@@ -12,6 +12,8 @@ const User = require('./models/user');
 const session = require('express-session');
 const mongoose = require('mongoose');
 const methodOverride = require('method-override');
+// const seedPosts  = require('./seeds');
+// seedPosts();
 
 // require routes
 const index 	= require('./routes/index');
@@ -21,7 +23,7 @@ const reviews = require('./routes/reviews');
 const app = express();
 
 // connect to the database
-mongoose.connect('mongodb://localhost:27017/surf-shop', { useNewUrlParser: true });
+mongoose.connect('mongodb://localhost:27017/surf-shop2', { useNewUrlParser: true });
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -38,7 +40,7 @@ app.set('view engine', 'ejs');
 app.use(express.static('public'));
 
 // uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -63,8 +65,8 @@ passport.deserializeUser(User.deserializeUser());
 // set local variables middleware
 app.use(function(req, res, next) {
   req.user = {
-    '_id' : '5c2f138538f2ec37bc707961',
-    'username' : 'ross103'
+    '_id' : '5c302b8b181f0623fc8c9f84',
+    'username' : 'ross101'
   }
   res.locals.currentUser = req.user;
   // set default page title
