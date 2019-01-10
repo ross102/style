@@ -8,8 +8,6 @@ const PostSchema = new Schema({
 	price: String,
 	description: String,
 	images: [ { url: String, public_id: String } ],
-	location: String,
-	coordinates: Array,
 	author: {
 		type: Schema.Types.ObjectId,
 		ref: 'User'

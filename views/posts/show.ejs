@@ -1,32 +1,29 @@
 <% layout('layouts/post-show-layout') -%>
-<h1><%= post.title %></h1>
-<div>Price: <%= post.price %></div>
-<div><%= post.description %></div>
-<div><%= post.location %></div>
-<div>
-	<% post.images.forEach(function(image) { %>
-	<img src="<%= image.url %>" alt="Surf board image" width="200px">
-	<% }); %>
+<div class="container text-center col-md-6 ">	
+<div class="card border border-success my-3">
+<div class="card-body ">
+	<h5 class="card-title mb-0"><%= post.title %></h5>
+	<p class="card-text mb-0"><%= post.price %> </p>
+	<p class="card-text mb-0"><%= post.description %></p>
 </div>
-<div id='map'></div>
-<div>
-	<a href="/posts/<%= post.id %>/edit">
-		<button>Edit</button>
-	</a>
+<% post.images.forEach(function(image) { %>
+<img src="<%= image.url %>" class="card-img-top rounded-left" alt="style">
+<% }); %>
 </div>
-<div>
-	<form action="/posts/<%= post.id %>?_method=DELETE" method="POST">
-		<input type="submit" value="Delete">
+</div>
+<div class="container text-center col-md-6 mb-2">
+    <a href="/posts/<%= post.id %>/edit" class="btn btn-sm btn-outline-dark float-left">Edit </a>    
+	<form class="form-inline justify-content-end" action="/posts/<%= post.id %>?_method=DELETE" method="POST">
+		<button class="btn btn-outline-danger btn-sm " type="submit"> Delete </button>
 	</form>
 </div>
 
-
-<h2>Create a Review</h2>
-<form action="/posts/<%= post.id %>/reviews" method="POST">
-	<textarea name="review[body]" required></textarea>
-	<fieldset class="starability-basic">
-			<legend> Rating:</legend>
-			<button class="clear-rating" type="button"> clear rating </button>
+<div class="container text-center col-md-6 mb-3">
+ <h5>Leave a Review</h5>
+   <form action="/posts/<%= post.id %>/reviews" method="POST" class="justify-content-start">
+	<textarea name="review[body]" class="form-control" placeholder="Click the star icon to leave a rating" required></textarea>
+	<fieldset class="starability-basic required">
+			<legend> rating:</legend>
 			<input type="radio" id="rate0" class="input-no-rate" name="review[rating]" value="0" checked aria-label="No review[rating]." />
 			<input type="radio" id="rate1" name="review[rating]" value="1" />
 			<label for="rate1" title="Terrible">1 star</label>
@@ -40,23 +37,35 @@
 			<label for="rate5" title="Amazing">5 stars</label>
 		  </fieldset>
 
-	<input type="submit">
+		  <button class="btn btn-success btn-sm d-flex justify-content-start" type="submit"> Review </button>
 </form>
+</div>
 
-<h3>Reviews</h3>
+<div class="container my-3 text-center">
+	<div class="row">
+		<div class="col-md-4">
 <!-- display all reviews -->
 <% post.reviews.forEach(function(review) { %>
-	<div>
-		 Author: <%= review.author.username %><br>
-		<%= review.body %><br>
-		Rating: <%= review.rating %>
+ <div class="card">
+	<div class="card-body">
+	 <h5 class="card-title">Author: <%= review.author.username %></h5>
+	 <h6 class="card-subtitle mb-2 ">Rating: <%= review.rating %></h6>
+	 <p class="card-text"> <%= review.body %> </p>
 	</div>
+  </div>
+ </div>
+</div>
+
+	<!-- Check is author is same with user -->
 	<% if(review.author.equals(currentUser._id)) {  %>
-<div>
-		<button class="toggle-edit-form">Edit</button>
-        <script> 
-				$('#rate<%= review.rating %>').prop('checked', true);
-			 </script>
+		<script> 
+		  $('#rate<%= review.rating %>').prop('checked', true);
+		</script>	
+  <div>  		
+		<button class="toggle-edit-form btn-success my-3 btn-sm d-flex justify-content-start">Edit</button>
+		<form action="/posts/<%= post.id %>/reviews/<%= review.id %>?_method=DELETE" method="POST">
+			<input type="submit" class="btn-outline-danger d-flex btn-sm justify-content-end " value="Delete">
+		  </form>
 		<form action="/posts/<%= post.id %>/reviews/<%= review.id %>?_method=PUT" method="POST" class="edit-review-form">
 			<textarea name="review[body]" required><%= review.body %></textarea>
 			<fieldset class="starability-basic">
@@ -80,10 +89,9 @@
 		<script> 
 		   $('#edit-rate<%= review.rating %>').prop('checked', true);
 		</script>
-		 <form action="/posts/<%= post.id %>/reviews/<%= review.id %>?_method=DELETE" method="POST"">
-		     <input type="submit" value="Delete">
-		</form>
+		 
 	</div>
 <% } %>
 	<hr>
 <% }); %>
+</div>

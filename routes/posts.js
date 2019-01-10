@@ -20,7 +20,7 @@ router.get('/', asyncErrorHandler(postIndex));
 router.get('/new', postNew);
 
 /* POST posts create /posts */
-router.post('/', upload.array('images', 4), asyncErrorHandler(postCreate));
+router.post('/', upload.array('images', 1), asyncErrorHandler(postCreate));
 
 /* GET posts show /posts/:id */
 router.get('/:id', asyncErrorHandler(postShow));
