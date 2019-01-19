@@ -12,8 +12,8 @@ const User = require('./models/user');
 const session = require('express-session');
 const mongoose = require('mongoose');
 const methodOverride = require('method-override');
-// const seedPosts  = require('./seeds');
-// seedPosts();
+//  const seedPosts  = require('./seeds');
+//  seedPosts();
 
 // require routes
 const index 	= require('./routes/index');
@@ -64,10 +64,6 @@ passport.deserializeUser(User.deserializeUser());
 
 // set local variables middleware
 app.use(function(req, res, next) {
-  req.user = {
-    '_id' : '5c302b8b181f0623fc8c9f84',
-    'username' : 'ross101'
-  }
   res.locals.currentUser = req.user;
   // set default page title
   res.locals.title = 'Surf Shop';

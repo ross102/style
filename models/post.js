@@ -8,19 +8,20 @@ const PostSchema = new Schema({
 	price: String,
 	description: String,
 	images: [ { url: String, public_id: String } ],
-	location: String,
-	coordinates: Array,
 	author: {
+		id: {
 		type: Schema.Types.ObjectId,
 		ref: 'User'
 	},
+	    username: String
+         },
 	reviews: [
 		{
 			type: Schema.Types.ObjectId,
 			ref: 'Review'
 		}
 	],
-	avgRating: { type: Number, default: 1 }
+	avgRating: { type: Number, default: 3 }
 });
 
 PostSchema.pre('remove', async function() {

@@ -1,15 +1,24 @@
-<% layout('layouts/boilerplate') -%>
-<h1>Posts Index!</h1>
-
-<% include ../partials/paginatePost %>
-
-<% posts.docs.forEach(function(post) { %>
-	<div>
-		<h2><%= post.title %></h2>
-		<div>Price: <%= post.price %></div>
-		<div><%= post.description %></div>
-		<div><%= post.location %></div>
-		<div><a href="/posts/<%= post.id %>">View more</a></div>
+<div class="container px-0">
+		<% layout('layouts/boilerplate') -%>
+		<% include ../partials/paginatePost %>		
+		<h1>Posts Index!</h1>
+	<div class="row">
+  <% posts.docs.forEach(function(post) { %>
+	<div class="col-sm-4 py-2 ">
+      <div class="card" >
+			<% post.images.forEach(function(image) { %>
+	   <img src="<%= image.url %>" style="height: 200px" class="card-img-top" alt="fashion">
+	   <% }); %>   
+	    <div class="card-body h-100 ">
+		 <h5 class="card-title "><%= post.title.charAt(0).toUpperCase() + post.title.slice(1) %></h5>
+		  <p class="card-text "><%= post.description %>.</p>
+			<p class="card-text "> <%= post.price %> </p>
+			<p class="card-text "> <%= post.author.username %> </p>
+		 <a href="/posts/<%= post._id %>" class="btn btn-sm btn-outline-primary"> View more</a>
+	  </div>
 	</div>
-<% }); %>
-<% include ../partials/paginatePost %>
+</div>
+  <% }); %>
+  
+  <% include ../partials/paginatePost %>
+</div>

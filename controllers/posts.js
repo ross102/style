@@ -1,6 +1,4 @@
 const Post = require('../models/post');
-const mbxGeocoding = require('@mapbox/mapbox-sdk/services/geocoding');
-const geocodingClient = mbxGeocoding({ accessToken: process.env.MAPBOX_TOKEN });
 const cloudinary = require('cloudinary');
 cloudinary.config({
 	cloud_name: 'daumszwur',
@@ -13,8 +11,9 @@ module.exports = {
 	async postIndex(req, res, next) {
 		let posts = await Post.paginate({}, {
 			page: req.query.page || 1,
-			limit: 10
-		});
+			limit: 10,
+			options: { sort: { '_id': 1} }
+		})
 		posts.page = Number(posts.page);
 		res.render('posts/index', { posts, title: 'Posts Index' });
 	},
@@ -25,6 +24,10 @@ module.exports = {
 	// Posts Create
 	async postCreate(req, res, next) {
 		req.body.post.images = [];
+		req.body.post.author = {
+			id: req.user._id,
+			username: req.user.username
+			};
 		for(const file of req.files) {
 			let image = await cloudinary.v2.uploader.upload(file.path);
 			req.body.post.images.push({
@@ -32,20 +35,14 @@ module.exports = {
 				public_id: image.public_id
 			});
 		}
-		let response = await geocodingClient
-		  .forwardGeocode({
-		    query: req.body.post.location,
-		    limit: 1
-		  })
-		  .send();
-		req.body.post.coordinates = response.body.features[0].geometry.coordinates;
+    			
 		let post = await Post.create(req.body.post);
 		req.session.success = 'Post created successfully!';
 		res.redirect(`/posts/${post.id}`);
 	},
 	// Posts Show
 	async postShow(req, res, next) {
-		let post = await Post.findById(req.params.id).populate({
+			let post = await Post.findById(req.params.id).populate({
 			path: 'reviews',
 			options: { sort: { '_id': -1 } },
 			populate: {
@@ -94,21 +91,15 @@ module.exports = {
 				});
 			}
 		}
-		// check if location was updated
-		if(req.body.post.location !== post.location) {
-			let response = await geocodingClient
-			  .forwardGeocode({
-			    query: req.body.post.location,
-			    limit: 1
-			  })
-			  .send();
-			post.coordinates = response.body.features[0].geometry.coordinates;
-			post.location = req.body.post.location;
-		}
+		
 		// update the post with any new properties
 		post.title = req.body.post.title;
 		post.description = req.body.post.description;
 		post.price = req.body.post.price;
+		req.body.post.author = {
+			id: req.user._id,
+			username: req.user.username
+			};
 		// save the updated post into the db
 		post.save();
 		// redirect to show page

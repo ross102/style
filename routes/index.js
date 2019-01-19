@@ -1,7 +1,16 @@
 const express = require('express');
 const router = express.Router();
-const { postRegister, postLogin, getLogout } = require('../controllers');
-const { asyncErrorHandler } = require('../middleware')
+const {
+  getRegister, 
+  postRegister, 
+  getLogin,
+  postLogin, 
+  getLogout,
+  getRecipe,
+  showRecipe,
+  getProfile
+   } = require('../controllers');
+const { asyncErrorHandler, checkIfUserExists } = require('../middleware')
 
 /* GET home page. */
 router.get('/', (req, res, next) => {
@@ -9,28 +18,29 @@ router.get('/', (req, res, next) => {
 });
 
 /* GET /register */
-router.get('/register', (req, res, next) => {
-  res.send('GET /register');
-});
+router.get('/register', getRegister);
 
 /* POST /register */
-router.post('/register', asyncErrorHandler(postRegister));
+router.post('/register', asyncErrorHandler(checkIfUserExists), asyncErrorHandler(postRegister));
 
 /* GET /login */
-router.get('/login', (req, res, next) => {
-  res.send('GET /login');
-});
+router.get('/login', getLogin);
 
 /* POST /login */
-router.post('/login', postLogin);
+router.post('/login', asyncErrorHandler(postLogin));
 
 /* GET /logout */
 router.get('/logout', getLogout);
 
+/* GET /recipe */
+router.get('/recipe', asyncErrorHandler(getRecipe));
+
+/* GET recipe Id */
+router.get('/recipe/:recipe_id', asyncErrorHandler(showRecipe))
+
 /* GET /profile */
-router.get('/profile', (req, res, next) => {
-  res.send('GET /profile');
-});
+router.get('/profile/:id', asyncErrorHandler(getProfile));
+
 
 /* PUT /profile/:user_id */
 router.put('/profile/:user_id', (req, res, next) => {

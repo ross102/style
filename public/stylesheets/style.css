@@ -1,8 +1,48 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+
+.navbar .navbar-nav .nav-item .nav-link:hover {
+  background-color: black;
+  color: whitesmoke;
+  font-size: 17;
 }
 
-a {
-  color: #00B7FF;
+.navbar  .navbar-brand:hover {
+  background-color: black;
+  color: whitesmoke;
+  font-size: 17;
+}
+
+ #foodHeader {
+  background-image: url('https://images.pexels.com/photos/41300/berliner-breakfast-bun-cake-41300.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  height: 300px; 
+}
+
+#fashionHeader {
+  background-image: url('https://images.pexels.com/photos/432059/pexels-photo-432059.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  height: 300px; 
+}
+
+.slidimg {
+  height: 300px;
+}
+
+.card-body:hover {
+ background-color: black;
+ color: whitesmoke;
+ 
+}
+
+#foot {
+  list-style: none;
+  color: whitesmoke;
+  font-size: 12px;
+}
+
+#foot:hover {
+  background-color: black;
 }

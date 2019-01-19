@@ -1,10 +1,13 @@
 <% layout('layouts/boilerplate') -%>
+<div class="container col-md-4">
 <h1>Edit Post!</h1>
 
 <form action="/posts/<%= post.id %>?_method=PUT" method="POST" id="postEditForm" enctype="multipart/form-data">
-	<div><input type="text" name="post[title]" placeholder="Title" value="<%= post.title  %>"></div>
-	<div><input type="text" name="post[price]" placeholder="Price" value="<%= post.price  %>"></div>
-	<div>
+	<div label="Title my-2">
+	<input type="text" name="post[title]" class="form-control" placeholder="Title" value="<%= post.title  %>"></div>
+	<div label="Price my-2">
+	<input type="text" class="form-control" name="post[price]" placeholder="Price" value="<%= post.price  %>"></div>
+	<div label="choose file">
 		<input type="file" id="imageUpload" accept="images/*" name="images" multiple />
 		<div>
 		<% post.images.forEach(function(image, i) { %>
@@ -14,12 +17,13 @@
 		<% }); %>
 		</div>
 	</div>
-	<div>
+	<div label="description"> 
 		<textarea name="post[description]" placeholder="Description"><%= post.description  %></textarea>
 	</div>
-	<div><input type="text" name="post[location]" placeholder="Location" value="<%= post.location  %>"></div>
+	
 
 	<input type="submit">
 </form>
 
 <script src="/javascripts/post-edit.js"></script>
+</div>

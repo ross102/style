@@ -1,0 +1,17 @@
+<% layout('layouts/boilerplate') -%>
+<div class="container text-center">
+    <div class="col-md-8 " >
+  <div class="card my-3 ">
+  <img src="<%= data.recipe.image_url %>" style="height: 300px;" class="card-img-top" alt="<%= data.recipe.title %>">
+    <div class="card-body">
+     <h5 class="card-title text-primary text-center"><%= data.recipe.title %> </h5>
+      <p class="card-text text-center"><small class="text-muted">Publisher:</small> <%= data.recipe.publisher %></p>
+      <p class="card-text text-center"> <b> Ingredients : </b> </p>
+    <% data.recipe.ingredients.forEach(function(ingredient) {  %> 
+      <p class="card-text py-0 my-1 "><%= ingredient %> </p> 
+      <% }) %>
+      <a href="<%= data.recipe.source_url %>" class="btn btn-outline-primary"> How to</a>
+  </div>
+</div>
+</div>
+</div>

@@ -1,14 +1,24 @@
 <% layout('layouts/boilerplate') -%>
-<h1>New Post!</h1>
 
-<form action="/posts" method="POST" enctype="multipart/form-data">
-	<div><input type="text" name="post[title]" placeholder="Title"></div>
-	<div><input type="text" name="post[price]" placeholder="Price"></div>
-	<div>
-		<input type="file" accept="images/*" name="images" multiple />
+<div class="container  col-5 col-sm-4">
+		<h5>Post a fashion style!</h5>
+ <form action="/posts" method="POST" enctype="multipart/form-data">
+	<div class="form-group mb-0">
+		<label for="title">Title</label>
+		<input type="text" class="form-control" name="post[title]" id="title" required  >
 	</div>
-	<div><textarea name="post[description]" placeholder="Description"></textarea></div>
-	<div><input type="text" name="post[location]" placeholder="Location"></div>
+	<div class="form-group mb-0">
+			<label for="price">Price</label>
+			<input type="text" class="form-control" id="price" name="post[price]" required>
+	</div>
+	<div class="form-group mb-0">
+			<label > Image </label>
+			<input type="file" class="form-control-file" accept="images/*" name="images" multiple /> 
+	</div>
+	<div class="mb-3 ">
+			<label for="Description">Description</label>
+			<textarea class="form-control" name="post[description]" id="Description" required></textarea>
+		<button type="submit" class="btn btn-primary mt-3">Submit</button>
+ </form>
+</div>
 
-	<input type="submit">
-</form>

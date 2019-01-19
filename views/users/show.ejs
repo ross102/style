@@ -1,0 +1,18 @@
+<% layout('layouts/post-show-layout') -%>
+<div class="container">
+    <div class="row">
+     <div class="col-md-5">
+             <h4> <%= user.username %> profile  </h4>
+         <a href="mailto:<%= user.email %>"> <%= user.email %> </a>
+     </div>
+     <div class="col-md-7">
+        <h4> <%= user.username %>'s posts: </h4>
+         <% posts.forEach(function(post) { %>
+            <ul>
+              <li> <a href="/posts/<%= post.id %>"> <%= post.title %> </a> </li>
+            </ul>
+         <% }) %>
+     </div>
+    </div>
+</div> 
+

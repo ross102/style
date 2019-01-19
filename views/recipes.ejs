@@ -1,0 +1,21 @@
+<% layout('layouts/boilerplate') -%>
+<div class="container">
+    <div class="row">
+        <% data.recipes.forEach(function(recipe) { %>
+        <div class="col-sm-3 py-2">
+        <div class="card h-100 border border-rounded ">
+            <img src="<%= recipe.image_url %>" style="height: 200px" class="card-img-top" alt="<%= recipe.title %>">
+            <div class="card-body">
+                <h5 class="card-title ">
+     <%= recipe.title.length > 20 ? recipe.title.substring(0, 20) + "..." : recipe.title %></h5>
+                 <p class="card-text "><small class="text-muted">Publisher:</small> <%= recipe.publisher %>.</p>
+                <a href="/recipe/<%= recipe.recipe_id %>" class="btn btn-sm btn-outline-primary"> view more </a>
+             </div>
+           </div>
+       </div>
+       <%  })   %>
+        </div>
+    </div>
+    
+           
+   
