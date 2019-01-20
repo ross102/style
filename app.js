@@ -1,5 +1,5 @@
-require('dotenv').config();
-
+if (process.env.NODE_ENV !== 'production') require('dotenv').config()
+// ('mongodb://localhost:27017/surf-shop2', { useNewUrlParser: true });
 const express = require('express');
 const engine = require('ejs-mate');
 const path = require('path');
