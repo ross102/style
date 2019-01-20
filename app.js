@@ -25,7 +25,7 @@ const app = express();
 
 
 // connect to the database
-mongoose.connect('mongodb://localhost:27017/surf-shop2', { useNewUrlParser: true });
+mongoose.connect(process.env.DATABASEURL, { useNewUrlParser: true });
 //("mongodb://ross101:ndu4mlab@ds161804.mlab.com:61804/styleswag", { useNewUrlParser: true } )
 process.env.DATABASEURL
 
