@@ -1,5 +1,5 @@
 if (process.env.NODE_ENV !== 'production') require('dotenv').config()
-// ('mongodb://localhost:27017/surf-shop2', { useNewUrlParser: true });
+
 const express = require('express');
 const engine = require('ejs-mate');
 const path = require('path');
@@ -25,8 +25,9 @@ const app = express();
 
 
 // connect to the database
-// ('mongodb://localhost:27017/surf-shop2', { useNewUrlParser: true });
-mongoose.connect("mongodb://ross101:ndu4mlab@ds161804.mlab.com:61804/styleswag", { useNewUrlParser: true } )
+mongoose.connect('mongodb://localhost:27017/surf-shop2', { useNewUrlParser: true });
+//("mongodb://ross101:ndu4mlab@ds161804.mlab.com:61804/styleswag", { useNewUrlParser: true } )
+process.env.DATABASEURL
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
