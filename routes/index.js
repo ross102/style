@@ -10,18 +10,18 @@ const {
   showRecipe,
   getProfile
    } = require('../controllers');
-const { asyncErrorHandler, checkIfUserExists } = require('../middleware')
+const { asyncErrorHandler } = require('../middleware')
 
 /* GET home page. */
 router.get('/', (req, res, next) => {
-  res.render('index', { title: 'Surf Shop - Home' });
+  res.render('index', { title:'Styleswag - Home' });
 });
 
 /* GET /register */
 router.get('/register', getRegister);
 
 /* POST /register */
-router.post('/register', asyncErrorHandler(checkIfUserExists), asyncErrorHandler(postRegister));
+router.post('/register',  asyncErrorHandler(postRegister));
 
 /* GET /login */
 router.get('/login', getLogin);

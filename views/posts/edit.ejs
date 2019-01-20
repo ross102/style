@@ -3,12 +3,16 @@
 <h1>Edit Post!</h1>
 
 <form action="/posts/<%= post.id %>?_method=PUT" method="POST" id="postEditForm" enctype="multipart/form-data">
-	<div label="Title my-2">
-	<input type="text" name="post[title]" class="form-control" placeholder="Title" value="<%= post.title  %>"></div>
-	<div label="Price my-2">
-	<input type="text" class="form-control" name="post[price]" placeholder="Price" value="<%= post.price  %>"></div>
-	<div label="choose file">
+	<div class="form-group mb-0">
+	 <label for="title"> Title </label>
+	<input type="text" name="post[title]" class="form-control" id="title" placeholder="Title" value="<%= post.title  %>"></div>
+	<div class="form-group mb-0">
+	 <label for="price"> Price </label>
+	<input type="text" class="form-control" name="post[price]" id="price" placeholder="Price" value="<%= post.price  %>"></div>
+	<div class="form-group mb-0">
+		<label for="imageUpload"> image </label>
 		<input type="file" id="imageUpload" accept="images/*" name="images" multiple />
+	</div>
 		<div>
 		<% post.images.forEach(function(image, i) { %>
 			<img src="<%= image.url %>" width="100px" />
@@ -16,13 +20,13 @@
 			<input type="checkbox" name="deleteImages[]" class="imageDeleteCheckbox" id="image<%= i %>" value="<%= image.public_id %>">
 		<% }); %>
 		</div>
-	</div>
-	<div label="description"> 
-		<textarea name="post[description]" placeholder="Description"><%= post.description  %></textarea>
+	<div class="form-group my-2">
+		<label for="desciption">Description</label>
+		<textarea  class="form-control" name="post[description]" placeholder="Description" id="desciption"><%= post.description  %></textarea>
 	</div>
 	
 
-	<input type="submit">
+	<input type="submit" class="btn btn-primary">
 </form>
 
 <script src="/javascripts/post-edit.js"></script>

@@ -6,6 +6,7 @@ const path = require('path');
 const favicon = require('serve-favicon');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
+const expressSanitizer = require('express-sanitizer');
 const bodyParser = require('body-parser');
 const passport = require('passport');
 const User = require('./models/user');
@@ -45,6 +46,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
+app.use(expressSanitizer());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(methodOverride('_method'));
 
@@ -66,7 +68,7 @@ passport.deserializeUser(User.deserializeUser());
 app.use(function(req, res, next) {
   res.locals.currentUser = req.user;
   // set default page title
-  res.locals.title = 'Surf Shop';
+  res.locals.title = 'Styleswag';
   // set success flash message
   res.locals.success = req.session.success || '';
   delete req.session.success;

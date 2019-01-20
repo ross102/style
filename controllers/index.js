@@ -6,33 +6,33 @@ const User = require('../models/user');
 module.exports = {
 		// Get Register
 		getRegister(req, res, next) {
-			res.render('register');
+			res.render('register', { title: 'sign up', username: '', email: '' });
 		},
 
 	// POST /register
 	async postRegister(req, res, next) {
-		const newUser = new User({
-			username: req.body.username,
-			email: req.body.email,
-			image: req.body.image,
-			isAdmin: req.body.isAdmin
-		});
+		
+	try  {
 		//Check if isAdmin
 		if(req.body.isAdmin === 'style36#') {
 			newUser.isAdmin = true;
-	} else {
+	    } else {
 			newUser.isAdmin = false;
-	}
-		let user = await User.register(newUser, req.body.password);
+	    }
+		const user = await User.register(new User(req.body), req.body.password);
 		req.login(user, function(err) {
-			if(err) {
-				return next(err)
-			} else {
-			req.session.success = "successfully registered! welcome " + user.username + '!' ;
-			res.redirect("/");
-			}
-		})
-		
+			if (err) return next(err);
+			req.session.success = `Welcome to Styleswag, ${user.username}!`;
+			res.redirect('/');
+		});
+	} catch(err) {
+		const { username, email } = req.body;
+		let error = err.message;
+		if (error.includes('duplicate') && error.includes('index: email_1 dup key')) {
+			error = 'A user with the given email is already registered';
+		}
+		res.render('register', { title: 'Register', username, email, error })
+	}
 	},
 		// GET login 
 		getLogin(req, res, next) {
@@ -64,7 +64,7 @@ module.exports = {
 			method: "GET",
 			qs: {
 				key: process.env.API_KEY,
-				q: "pizza"
+				q: req.query.foodSearch
 			},
 			json: true
 		}

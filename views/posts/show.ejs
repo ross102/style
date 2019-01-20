@@ -2,9 +2,9 @@
 <div class="container text-center col-md-6 ">	
 <div class="card border  my-3">
 <div class="card-body ">
-	<h5 class="card-title mb-0"><%= post.title %></h5>
-	<p class="card-text mb-0"><%= post.price %> </p>
-	<p class="card-text mb-0"><%= post.description %></p>
+	<h5 class="card-title mb-0"><%= post.title.charAt(0).toUpperCase() + post.title.slice(1)  %></h5>
+	<p class="card-text mb-0"><%= post.price %> $</p>
+	<p class="card-text mb-0"><%- post.description %></p>
 	<% for(let i = 0; i < 5; i++) { %>
 		<% if(i < floorRating) { %>
 			<!-- display a full star -->
@@ -26,7 +26,7 @@
 <% }); %>
 </div>
 </div>
-<% if(currentUser && post.author.id.equals(currentUser._id)) { %>
+<% if(currentUser && post.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin) { %>
  <div class="container text-center col-md-6 mb-2">
     <a href="/posts/<%= post.id %>/edit" class="btn btn-sm btn-outline-dark float-left">Edit </a>    
 	<form class="form-inline justify-content-end" action="/posts/<%= post.id %>?_method=DELETE" method="POST">
@@ -37,8 +37,7 @@
 <div class="container text-center col-md-6 mb-3">
  <h5>Leave a Review</h5>
    <form action="/posts/<%= post.id %>/reviews" method="POST" class="justify-content-start">
-	<textarea name="review[body]" class="form-control" placeholder="Click the star icon to leave a rating" required></textarea>
-	<fieldset class="starability-basic required">
+	<fieldset class="starability-basic required" required>
 			<legend> rating:</legend>
 			<input type="radio" id="rate0" class="input-no-rate" name="review[rating]" value="0" checked aria-label="No review[rating]." />
 			<input type="radio" id="rate1" name="review[rating]" value="1" />
@@ -52,8 +51,8 @@
 			<input type="radio" id="rate5" name="review[rating]" value="5" />
 			<label for="rate5" title="Amazing">5 stars</label>
 		  </fieldset>
-
-		  <button class="btn btn-success btn-sm d-flex justify-content-start" type="submit"> Review </button>
+		  <textarea name="review[body]" class="form-control" placeholder="Click the star icon to leave a rating" required></textarea>
+		  <button class="btn btn-success btn-sm d-flex justify-content-center mt-2" type="submit"> Review </button>
 </form>
 </div>
 
@@ -73,18 +72,15 @@
 </div>
 
 	<!-- Check is author is same with user -->
-	<% if(review.author.equals(currentUser)) {  %>
-		<script> 
-		  $('#rate<%= review.rating %>').prop('checked', true);
-		</script>	
+	<% if(review.author.equals(currentUser) || currentUser && currentUser.isAdmin) {  %>
+			
   <div>  		
-		<button class="toggle-edit-form btn-success my-3 btn-sm d-flex justify-content-start">Edit</button>
 		<form action="/posts/<%= post.id %>/reviews/<%= review.id %>?_method=DELETE" method="POST">
-			<input type="submit" class="btn-outline-danger d-flex btn-sm justify-content-end " value="Delete">
+			<input type="submit" class="btn-outline-danger d-flex btn-sm mt-2 " value="Delete">
 		  </form>
 		<form action="/posts/<%= post.id %>/reviews/<%= review.id %>?_method=PUT" method="POST" class="edit-review-form">
-			<textarea name="review[body]" required><%= review.body %></textarea>
-			<fieldset class="starability-basic">
+			<textarea name="review[body]" ><%= review.body %></textarea>
+			<fieldset class="starability-basic" required>
 					<legend> Rating:</legend>
 					<button class="clear-rating" type="button"> clear rating </button>
 					<input type="radio" id="edit-rate0" class="input-no-rate" name="review[rating]" value="0" checked aria-label="No review[rating]." />

@@ -12,10 +12,10 @@ module.exports = {
 		let posts = await Post.paginate({}, {
 			page: req.query.page || 1,
 			limit: 10,
-			options: { sort: { '_id': 1} }
+			options: { sort: { '_id': -1} }
 		})
 		posts.page = Number(posts.page);
-		res.render('posts/index', { posts, title: 'Posts Index' });
+		res.render('posts/index', { posts, title: 'fashion trends' });
 	},
 	// Posts New
 	postNew(req, res, next) {
@@ -23,6 +23,7 @@ module.exports = {
 	},
 	// Posts Create
 	async postCreate(req, res, next) {
+		req.body.post.description = req.sanitize(req.body.post.description)
 		req.body.post.images = [];
 		req.body.post.author = {
 			id: req.user._id,
@@ -93,6 +94,7 @@ module.exports = {
 		}
 		
 		// update the post with any new properties
+		req.body.post.description = req.sanitize(req.body.post.description)
 		post.title = req.body.post.title;
 		post.description = req.body.post.description;
 		post.price = req.body.post.price;

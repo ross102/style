@@ -1,11 +1,12 @@
-<% layout('layouts/post-show-layout') -%>
-<div class="container">
+		
+<div class="container pb-5">
+    <% layout('layouts/boilerplate') -%>
     <div class="row">
-     <div class="col-md-5">
-             <h4> <%= user.username %> profile  </h4>
-         <a href="mailto:<%= user.email %>"> <%= user.email %> </a>
+     <div class="col-md-5 pb-5 mb-5">
+             <h4> <%= user.username %>'s profile  </h4>
+         <a href="mailto:<%= user.email %> " > <%= user.email %> </a>
      </div>
-     <div class="col-md-7">
+     <div class="col-md-7 pb-5 mb-5">
         <h4> <%= user.username %>'s posts: </h4>
          <% posts.forEach(function(post) { %>
             <ul>
