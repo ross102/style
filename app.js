@@ -23,8 +23,10 @@ const reviews = require('./routes/reviews');
 
 const app = express();
 
+
 // connect to the database
-mongoose.connect('mongodb://localhost:27017/surf-shop2', { useNewUrlParser: true });
+// ('mongodb://localhost:27017/surf-shop2', { useNewUrlParser: true });
+mongoose.connect("mongodb://ross101:ndu4mlab@ds161804.mlab.com:61804/styleswag", { useNewUrlParser: true } )
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
