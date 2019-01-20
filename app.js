@@ -26,8 +26,6 @@ const app = express();
 
 // connect to the database
 mongoose.connect(process.env.DATABASEURL, { useNewUrlParser: true });
-//("mongodb://ross101:ndu4mlab@ds161804.mlab.com:61804/styleswag", { useNewUrlParser: true } )
-process.env.DATABASEURL
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));

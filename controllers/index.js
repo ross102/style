@@ -15,9 +15,9 @@ module.exports = {
 	try  {
 		//Check if isAdmin
 		if(req.body.isAdmin === 'style36#') {
-			newUser.isAdmin = true;
+			req.body.isAdmin = true;
 	    } else {
-			newUser.isAdmin = false;
+			req.body.isAdmin = false;
 	    }
 		const user = await User.register(new User(req.body), req.body.password);
 		req.login(user, function(err) {
