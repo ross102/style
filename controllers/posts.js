@@ -12,8 +12,8 @@ module.exports = {
 		let posts = await Post.paginate({}, {
 			page: req.query.page || 1,
 			limit: 10,
-			options: { sort: { '_id': -1} }
-		})
+			sort: { '_id': -1} }
+		)
 		posts.page = Number(posts.page);
 		res.render('posts/index', { posts, title: 'fashion trends' });
 	},

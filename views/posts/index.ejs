@@ -5,11 +5,11 @@
 	<div class="row">
   <% posts.docs.forEach(function(post) { %>
 	<div class="col-sm-4 py-2 ">
-      <div class="card" >
+      <div class="card h-100" >
 			<% post.images.forEach(function(image) { %>
 	   <img src="<%= image.url %>" style="height: 200px" class="card-img-top" alt="fashion">
 	   <% }); %>   
-	    <div class="card-body h-100 ">
+	    <div class="card-body ">
 		 <h5 class="card-title "><%= post.title.charAt(0).toUpperCase() + post.title.slice(1) %></h5>
 		  <p class="card-text "><%- post.description.substring(0, 60) + '...' %></p>
 			<p class="card-text "> <%= post.price %> </p>
